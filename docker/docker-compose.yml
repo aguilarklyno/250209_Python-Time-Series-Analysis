@@ -1,0 +1,14 @@
+# docker-compose.yml
+# Docker Compose v2では version: ... は不要です
+services:
+  timeseries:
+    build:
+      context: .         # 現在のディレクトリ (docker/) をビルドコンテキストに
+      dockerfile: Dockerfile
+    container_name: timeseries_container
+    ports:
+      - "8888:8888"
+    volumes:
+      # １つ上の階層 (リポジトリのルート) を /workspace にマウント
+      - ../:/workspace
+    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
